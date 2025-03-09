@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_KOTA 22
+
+char *Kota[MAX_KOTA] = {"Arad", "Timisoara", "Lugoj", "Mehadia", "Dobreta","Craiova", "Pitesti", "Bucharest",
+"Zerind", "Oradea","Sibiu", "Rimnicu Vilcea", "Pitesti", "Bucharest", "Uriziceni", "Vaslui", "Lasi", "Neamt", 
+"Fagaras", "Bucharest", "Giurgiu", " Urziceni", "Hisorva", "Eforie"};
+int Graph[MAX_KOTA] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+						16, 17, 18, 19, 20, 21, -1};
+
+int getKotaIndex(char *nama) {
+	int i;
+    for (i = 0; i < MAX_KOTA; i++)
+    {
+        if (strcmp(Kota[i], nama) == 0)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void cetakRute(int mulai, int selesai) {
+    printf("Rute: %s", Kota[mulai]);
+    while (mulai != selesai && Graph[mulai] != -1) 
+    {
+        mulai = Graph[mulai];
+        printf(" -> %s", Kota[mulai]);
+    }
+    printf("\n");
+}
+
+int main(){
+    char kotaAsal[25], kotaTujuan[25];
+    
+    printf("Masukkan Kota Asal: ");
+    scanf("%s", kotaAsal);
+    printf("Masukkan Kota Tujuan: ");
+    scanf("%s", kotaTujuan);
+
+    int indexMulai = getKotaIndex(kotaAsal);
+    int indexSelesai = getKotaIndex(kotaTujuan);
+    
+    printf("Menggunakan Metode DFS \n");
+    cetakRute(indexMulai, indexSelesai);
+
+    return 0;
+}
